@@ -116,16 +116,16 @@ int main()
 
 #include <iostream>
 double simple_interest(const double initialBalance, const int simpleInterestRate);
-double compound_interest(double currentAnyoneBalance, const int compoundInterestRate);
+double compound_interest(const double currentAnyoneBalance, const int compoundInterestRate);
 
 int main()
 {
 	using namespace std;
 	const int initialBalance = 100;
-	const int simpleInterestRate = 0.1;
-	const int compoundInterestRate = 0.05;
-	long double currentDafnaBalance = initialBalance;
-	long double currentCleoBalance = initialBalance;
+	const double simpleInterestRate = 0.1;
+	const double compoundInterestRate = 0.05;
+	double currentDafnaBalance = initialBalance;
+	double currentCleoBalance = initialBalance;
 	int year_count = 0;
 
 	do
@@ -148,7 +148,7 @@ double simple_interest(const double initialBalance, const int simpleInterestRate
 	return initialBalance * simpleInterestRate;
 }
 
-double compound_interest(double currentCleoBalance, const int compoundInterestRate)
+double compound_interest(const double currentAnyoneBalance, const int compoundInterestRate)
 {
 	return currentCleoBalance * compoundInterestRate;
 }
