@@ -8,7 +8,7 @@
 //					сообщить, что сумма всех целых чисел от 2 до 9 равна 44.
 
 #include <iostream>
-int count(int first_num, int second_num);
+int count(int first_num, const int second_num);
 
 int main()
 {
@@ -27,10 +27,10 @@ int main()
 	return 0;
 }
 
-int count(int first, int second)
+int count(int first, const int second)
 {
 	int sum = 0;
-	for (int a = first; a <= second; a++)
+	for ( ; first <= second; a++)
 	{
 		sum += a;
 	}
@@ -52,15 +52,15 @@ int count(int first, int second)
 
 int main()
 {
-	const int factorial_size = 100;
-	std::array<long double, 100> factorial;
-	factorial[0] = factorial[1] = 1L;
+	constexpr size_t factorial_size = 100;
+	std::array<long double, factorial_size> factorial;
+	factorial[0] = factorial[1] = 1.L;
 
-	for (int i = 2; i < factorial_size; i++)
+	for (int i = 2; i < factorial.size(); i++)
 	{
 		factorial[i] = i * factorial[i - 1];
 	}
-	for (int i = 0; i < factorial_size; i++)
+	for (int i = 0; i < factorial.size(); i++)
 	{
 		std::cout << i << "! = " << factorial[i] << std::endl;
 	}
@@ -96,7 +96,7 @@ int main()
 }
 
 
-//Task 3 -- Дафна инвестировала 100$ под простые 10%. Другими словами, ежегодно
+//Task 4 -- Дафна инвестировала 100$ под простые 10%. Другими словами, ежегодно
 //			инвестиция должна приносить 10% инвестированной суммы (10$ каждый год):
 
 //			прибыль = 0.10 * исходные баланс.
@@ -115,40 +115,42 @@ int main()
 
 
 #include <iostream>
-double dafna(double source_capital);
-double cleo(double cleo_capital);
+double simple_interest(const double initialBalance, const int simpleInterestRate);
+double compound_interest(double currentAnyoneBalance, const int compoundInterestRate);
 
 int main()
 {
 	using namespace std;
-	const int source_capital = 100;
-	long double dafna_capital, cleo_capital;
-	dafna_capital = cleo_capital = source_capital;
+	const int initialBalance = 100;
+	const int simpleInterestRate = 0.1;
+	const int compoundInterestRate = 0.05;
+	long double currentDafnaBalance = initialBalance;
+	long double currentCleoBalance = initialBalance;
 	int year_count = 0;
 
 	do
 	{
-		dafna_capital += dafna(source_capital);
-		cout << "Now Dafna's capital is " << dafna_capital << "$" << endl;
-		cleo_capital += cleo(cleo_capital);
-		cout << "Now Cleo's capital is " << cleo_capital << "$" << endl;
+		currentDafnaBalance += simple_interest(initialBalance, simpleInterestRate);
+		cout << "Now Dafna's balance is " << currentDafnaBalance << "$" << endl;
+		currentCleoBalance += compound_interest(currentCleoBalance, compoundInterestRate);
+		cout << "Now Cleo's balance is " << currentCleoBalance << "$" << endl;
 		cout << ":" << endl;
 		year_count++;
 
 	}
-	while (dafna_capital > cleo_capital);
+	while (currentDafnaBalance > currentCleoBalance);
 
 	cout << "Need " << year_count << " years." << endl;
 }
 
-double dafna(double source_capital)
+double simple_interest(const double initialBalance, const int simpleInterestRate);
 {
-	return source_capital * 0.1;
+	return initialBalance * simpleInterestRate;
 }
 
-double cleo(double cleo_capital)
+double compound_interest(double currentCleoBalance, const int compoundInterestRate)
 {
-	return cleo_capital * 0.05;
+	return currentCleoBalance * compoundInterestRate;
 }
 
 
